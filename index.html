@@ -447,8 +447,8 @@ const fmt=s=>{const m=Math.floor(s/60), ss=Math.floor(s%60); return `${String(m)
 
 function load(k){
   T=TRACES[k]; i=0; latched=false; consent=true; revokedAt=null; said={}; prevI=-1; lastAlarmSeen=false; stopSpeech();
-  $('sub').textContent=`One patient from the University of Siena set, replayed seizure by seizure. The full evaluation behind this page covered 32 patients at two hospitals, and the pooled results are in the questions below. This recording is ${T.patient}, file ${T.file}. Models trained on this patient's other ${T.n_train_seizures} seizures only. Seizure onset at ${fmt(T.onset_s)}.`;
-  $('pills').innerHTML=[`<b>${T.n_channels}</b> EEG channels`,`<b>1</b> heart lead`,`<b>${Math.round(T.mean_hr)}</b> bpm mean`,`<b>${T.n_eeg_features}</b> brain features`,`<b>${T.n_ecg_features}</b> heart features`,`<b>${T.sop_min}</b> min horizon`,`<b>${T.ledger.revocation_latency_ms}</b> ms ledger refusal`].map(p=>`<span class="pill">${p}</span>`).join('');
+  $('sub').textContent=`One patient from the University of Siena set, replayed seizure by seizure. The full evaluation behind this page covered 30 evaluable patients at two hospitals, and the pooled results are in the questions below. This recording is ${T.patient}, file ${T.file}. Models trained on this patient's other ${T.n_train_seizures} seizures only. Seizure onset at ${fmt(T.onset_s)}.`;
+  $('pills').innerHTML=[`<b>${T.n_channels}</b> EEG channels`,`<b>1</b> heart lead`,`<b>${Math.round(T.mean_hr)}</b> bpm mean`,`<b>${T.n_eeg_features}</b> brain features`,`<b>${T.n_ecg_features}</b> heart features`,`<b>${T.sop_min}</b> min horizon`,`<b>21 to 167</b> ms ledger refusal, measured`].map(p=>`<span class="pill">${p}</span>`).join('');
   $('scrub').max=T.t.length-1; $('scrub').value=0;
   renderChain();
   $('lat').textContent=`Measured on this machine, from signed revocation to the ledger refusing the next check, ${T.ledger.revocation_latency_ms} ms. That is a single in-process check against a short ledger. Across 1,800 trials at realistic ledger sizes and polling intervals the median ran from 21 to 167 ms.`;
